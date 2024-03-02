@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tripvisormajor/provider/geminichatprovider.dart';
 import 'package:tripvisormajor/provider/packagedetailprovider.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
@@ -308,83 +309,121 @@ Widget _buildGuideAndPorterSection(
 
 //Gemini chat bot as a side features
 
-class ChatPopup extends StatefulWidget {
+class ChatPopup extends StatelessWidget {
   const ChatPopup({Key? key}) : super(key: key);
-
-  @override
-  _ChatPopupState createState() => _ChatPopupState();
-}
-
-class _ChatPopupState extends State<ChatPopup> {
-  TextEditingController _controller = TextEditingController();
-  List<String> _messages = [];
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: _openChatDialog,
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ChangeNotifierProvider<GeminiChatProvider>(
+              create: (_) => GeminiChatProvider(),
+              child: ChatDialog(),
+            );
+          },
+        );
+      },
       child: const Icon(Icons.chat),
       backgroundColor: Colors.blue,
     );
   }
+}
 
-  void _openChatDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          alignment: Alignment.centerRight,
-          child: Container(
-            width: 400,
-            height: 500,
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: _messages.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        title: Text(_messages[index]),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _controller,
-                          decoration: InputDecoration(
-                            hintText: 'Type your message...',
+class ChatDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final chatProvider = Provider.of<GeminiChatProvider>(context);
+    return Dialog(
+      insetPadding: EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        width: 400,
+        height: 500,
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: chatProvider.messages.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final message = chatProvider.messages[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (!message['isUser'])
+                          CircleAvatar(
+                            backgroundImage: AssetImage(
+                              'path_to_gemini_avatar_image',
+                            ),
+                          ),
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: message['isUser'] ? 40 : 16),
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: message['isUser']
+                                  ? Colors.blue.withOpacity(0.2)
+                                  : Colors.green.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: message['isUser']
+                                ? Text(
+                                    message['message'],
+                                    style: TextStyle(color: Colors.blue),
+                                  )
+                                : FutureBuilder(
+                                    future:
+                                        Future.delayed(Duration(seconds: 2)),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<dynamic> snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return CircularProgressIndicator();
+                                      } else {
+                                        return Text(
+                                          message['message'],
+                                          style: TextStyle(color: Colors.green),
+                                        );
+                                      }
+                                    },
+                                  ),
                           ),
                         ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: chatProvider.controller,
+                    decoration: InputDecoration(
+                      hintText: 'Type your message...',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      IconButton(
-                        onPressed: _sendMessage,
-                        icon: Icon(Icons.send),
-                      ),
-                    ],
+                    ),
                   ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    chatProvider.sendMessage(chatProvider.controller.text);
+                  },
+                  icon: Icon(Icons.send),
                 ),
               ],
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
-  }
-
-  void _sendMessage() {
-    final gemini = Gemini.instance;
-    gemini
-        .text(_controller.text)
-        .then((value) => setState(() {
-              _messages.add(_controller.text);
-              _messages.add(value?.output ?? '');
-              _controller.clear();
-            }))
-        .catchError((e) => print(e));
   }
 }
