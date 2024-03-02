@@ -1,3 +1,6 @@
+#lib/backend/geminiapikey.dart
+lib/backend/geminiapikey.dart
+
 # Miscellaneous
 *.class
 *.log

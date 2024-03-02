@@ -10,6 +10,7 @@ import 'package:tripvisormajor/Widgets/offersection/offersection3.dart';
 import 'package:tripvisormajor/Widgets/tagsandads.dart';
 import 'package:tripvisormajor/Widgets/searchbar.dart';
 import 'package:go_router/go_router.dart';
+import 'package:web_smooth_scroll/web_smooth_scroll.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -19,10 +20,26 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
+  // Controllers
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    // initialize scroll controllers
+    _scrollController = ScrollController();
+
+    super.initState();
+  }
+
   String? _selectedOption;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0.1,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+      ),
       backgroundColor: Colors.grey[300],
       body: CustomScrollView(
         physics: AlwaysScrollableScrollPhysics(),
@@ -72,7 +89,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                 ),
                               ),
                               child: Text(
-                                "Register  ▼",
+                                "SignIn  ▼",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 14),
                               ),
@@ -82,7 +99,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: customText('Register as: ', 16),
+                                        title: customText('Signin as: ', 16),
                                         content: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
@@ -90,14 +107,14 @@ class _LandingScreenState extends State<LandingScreen> {
                                               title: customText('User', 14),
                                               onTap: () {
                                                 GoRouter.of(context)
-                                                    .go('/register');
+                                                    .go('/Register');
                                               },
                                             ),
                                             ListTile(
-                                              title: customText('Agent', 14),
+                                              title: customText('Agency', 14),
                                               onTap: () {
                                                 GoRouter.of(context)
-                                                    .go('/register');
+                                                    .go('/Login');
                                               },
                                             ),
                                           ],
@@ -118,11 +135,25 @@ class _LandingScreenState extends State<LandingScreen> {
             const SizedBox(
               height: 20,
             ),
-            TagDisplay(),
-            OfferSection1(),
-            OfferSection2(),
-            OfferSection3(),
-            CustomFooter(),
+            WebSmoothScroll(
+              controller: _scrollController,
+              scrollOffset: 60, // additional offset to users scroll input
+              animationDuration:
+                  500, // duration of animation of scroll in milliseconds
+              curve: Curves.easeInOutCirc, // curve of the animation
+              child: SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: _scrollController,
+                  child: Column(
+                    children: [
+                      TagDisplay(),
+                      OfferSection1(),
+                      OfferSection2(),
+                      OfferSection3(),
+                      CustomFooter(),
+                    ],
+                  )),
+            ),
           ])),
         ],
       ),

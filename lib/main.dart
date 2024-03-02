@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tripvisormajor/Views/landingscree.dart';
-import 'package:tripvisormajor/Views/oneclickplan.dart';
-import 'package:tripvisormajor/Views/packagedetails.dart';
+import 'package:tripvisormajor/Views/landingpage/landingscree.dart';
+import 'package:tripvisormajor/Views/loginRegister/Agency.dart';
+import 'package:tripvisormajor/Views/oneclickplan/oneclickplan.dart';
+import 'package:tripvisormajor/Views/packagedetails/packagedetails.dart';
+import 'package:tripvisormajor/Views/loginRegister/User.dart';
 import 'package:tripvisormajor/Widgets/searchbar.dart';
 import 'package:provider/provider.dart';
 import 'package:tripvisormajor/provider/tagprovider.dart';
@@ -32,6 +34,14 @@ class MyApp extends StatelessWidget {
       GoRoute(
         path: '/oneclickplan',
         builder: (context, state) => oneclick(),
+      ),
+      GoRoute(
+        path: '/Register',
+        builder: (context, state) => UserSignIn(),
+      ),
+      GoRoute(
+        path: '/Login',
+        builder: (context, state) => AgencySignIn(),
       ),
     ],
   );
