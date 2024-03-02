@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tripvisormajor/provider/Offersectionprovider.dart';
+import 'package:tripvisormajor/provider/offersectionprovider.dart';
 import 'package:provider/provider.dart';
 
 class OfferSection3 extends StatelessWidget {
@@ -19,13 +19,13 @@ class OfferSection3 extends StatelessWidget {
         ),
         SizedBox(
           height: 500,
-          child: Consumer<Offersectionprovider>(
-            builder: (context, Offersectionprovider, child) {
+          child: Consumer<offersectionprovider>(
+            builder: (context, offerSectionProvider, child) {
               return ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: Offersectionprovider.getcounts(3),
+                itemCount: offerSectionProvider.getcounts(3),
                 itemBuilder: (context, index) {
-                  final premiumPackage = Offersectionprovider.offerlist3[index];
+                  final premiumPackage = offerSectionProvider.offerlist3[index];
                   return Container(
                     width: 300,
                     margin: EdgeInsets.all(10),

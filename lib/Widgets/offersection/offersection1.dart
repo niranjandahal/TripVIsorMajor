@@ -1,15 +1,17 @@
+import 'dart:js_util';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tripvisormajor/Components/customText.dart';
-import 'package:tripvisormajor/provider/Offersectionprovider.dart';
+import 'package:tripvisormajor/provider/offersectionprovider.dart';
 
 class OfferSection1 extends StatelessWidget {
   const OfferSection1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Offersectionprovider>(
-      builder: (context, Offersectionprovider, child) {
+    return Consumer<offersectionprovider>(
+      builder: (context, offerSectionProvider, child) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -25,7 +27,7 @@ class OfferSection1 extends StatelessWidget {
             Wrap(
               spacing: 20,
               runSpacing: 20,
-              children: Offersectionprovider.offerlist1
+              children: offerSectionProvider.offerlist1
                   .map((offer) => OfferCard(offer: offer))
                   .toList(),
             ),

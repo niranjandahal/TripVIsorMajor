@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Offersectionprovider extends ChangeNotifier {
+class offersectionprovider extends ChangeNotifier {
   int datacount = 0;
 
   // List<String> offerlist1 = [

@@ -14,7 +14,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => Tagprovider()),
-      ChangeNotifierProvider(create: (context) => Offersectionprovider()),
+      ChangeNotifierProvider(create: (context) => offersectionprovider()),
       ChangeNotifierProvider(create: (context) => PackageDetailsProvider()),
     ],
     child: MyApp(),
