@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tripvisormajor/Widgets/HomeFullScreenShow.dart';
 import 'package:tripvisormajor/Components/customtext.dart';
 import 'package:tripvisormajor/Components/navcomponent.dart';
-import 'package:tripvisormajor/Widgets/customdrawer.dart';
 import 'package:tripvisormajor/Widgets/footer.dart';
 import 'package:tripvisormajor/Widgets/offersection/offersection1.dart';
 import 'package:tripvisormajor/Widgets/offersection/offersection2.dart';
@@ -31,7 +30,9 @@ class _LandingScreenState extends State<LandingScreen> {
     super.initState();
   }
 
-  String? _selectedOption;
+  // Remove the unused field
+  // String? _selectedOption;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

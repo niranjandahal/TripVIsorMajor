@@ -5,16 +5,17 @@ import 'package:tripvisormajor/Views/loginRegister/Agency.dart';
 import 'package:tripvisormajor/Views/oneclickplan/oneclickplan.dart';
 import 'package:tripvisormajor/Views/packagedetails/packagedetails.dart';
 import 'package:tripvisormajor/Views/loginRegister/User.dart';
-import 'package:tripvisormajor/Widgets/searchbar.dart';
 import 'package:provider/provider.dart';
+import 'package:tripvisormajor/provider/packagedetailprovider.dart';
 import 'package:tripvisormajor/provider/tagprovider.dart';
 import 'package:tripvisormajor/provider/offersectionprovider.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => tagprovider()),
-      ChangeNotifierProvider(create: (context) => offersectionprovider()),
+      ChangeNotifierProvider(create: (context) => Tagprovider()),
+      ChangeNotifierProvider(create: (context) => Offersectionprovider()),
+      ChangeNotifierProvider(create: (context) => PackageDetailsProvider()),
     ],
     child: MyApp(),
   ));

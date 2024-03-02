@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 
 class oneclick extends StatefulWidget {
   const oneclick({super.key});

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tripvisormajor/Components/customtext.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class tagprovider extends ChangeNotifier {
+class Tagprovider extends ChangeNotifier {
   List<String> tags = [
     'Beach',
     'Hill Station',
@@ -64,7 +62,7 @@ class tagprovider extends ChangeNotifier {
   //function to update data
   Color tagcolor(String tag) {
     if (selectedtags == tag) {
-      return Color(0xFF5A5DF7).withOpacity(0.7);
+      return const Color(0xFF5A5DF7).withOpacity(0.7);
     } else {
       return Colors.white;
     }
@@ -111,7 +109,6 @@ class tagprovider extends ChangeNotifier {
 
   Future<void> getselectedtagimg(String tags) async {
     selectedtagimg.clear();
-    print("getimgcalled");
     var url = Uri.parse('https://picsum.photos/v2/list?page=2&limit=10');
     var response = await http.get(url);
     var data = jsonDecode(response.body);

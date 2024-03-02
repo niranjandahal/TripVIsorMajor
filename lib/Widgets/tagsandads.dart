@@ -18,7 +18,7 @@ class _TagDisplayState extends State<TagDisplay> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      Provider.of<tagprovider>(context, listen: false).getadsimg();
+      Provider.of<Tagprovider>(context, listen: false).getadsimg();
     });
   }
 
@@ -29,22 +29,22 @@ class _TagDisplayState extends State<TagDisplay> {
         Container(
           margin: EdgeInsets.only(left: 30, bottom: 30),
           height: 50,
-          child: Consumer<tagprovider>(
-            builder: (context, tagProvider, child) {
+          child: Consumer<Tagprovider>(
+            builder: (context, Tagprovider, child) {
               //beautiful horizontal scrollable list with card and shadow effect
               return ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: tagProvider.tags.length,
+                itemCount: Tagprovider.tags.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        tagProvider.selecttags(tagProvider.tags[index]);
+                        Tagprovider.selecttags(Tagprovider.tags[index]);
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: tagProvider.tagcolor(tagProvider.tags[index]),
+                          color: Tagprovider.tagcolor(Tagprovider.tags[index]),
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
@@ -59,11 +59,11 @@ class _TagDisplayState extends State<TagDisplay> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: customText(
-                            tagProvider.tags[index],
+                            Tagprovider.tags[index],
                             15,
                             // color: Colors.black,
-                            color: tagProvider
-                                .tagtextcolor(tagProvider.tags[index]),
+                            color: Tagprovider
+                                .tagtextcolor(Tagprovider.tags[index]),
                             weight: FontWeight.bold,
                           ),
                         ),
@@ -80,7 +80,7 @@ class _TagDisplayState extends State<TagDisplay> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.7,
           margin: EdgeInsets.all(10),
-          child: Consumer<tagprovider>(
+          child: Consumer<Tagprovider>(
             builder: (context, tagProvider, child) {
               if (tagProvider.selectedtags == '') {
                 //show all images from adsimglist in carousel slider

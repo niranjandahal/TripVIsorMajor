@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tripvisormajor/provider/offersectionprovider.dart';
+import 'package:tripvisormajor/provider/Offersectionprovider.dart';
 
 class OfferSection2 extends StatefulWidget {
   const OfferSection2({Key? key}) : super(key: key);
@@ -27,13 +27,13 @@ class _OfferSection2State extends State<OfferSection2> {
           height: 400,
           margin: EdgeInsets.all(20),
           // color: Colors.green,
-          child: Consumer<offersectionprovider>(
-            builder: (context, offerSectionProvider, child) {
+          child: Consumer<Offersectionprovider>(
+            builder: (context, Offersectionprovider, child) {
               return ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: offerSectionProvider.getcounts(2),
+                itemCount: Offersectionprovider.getcounts(2),
                 itemBuilder: (context, index) {
-                  final offer = offerSectionProvider.offerlist2[index];
+                  final offer = Offersectionprovider.offerlist2[index];
                   return Container(
                     width: 300,
                     height: 400,
