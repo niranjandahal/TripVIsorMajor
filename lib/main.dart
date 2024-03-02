@@ -9,8 +9,10 @@ import 'package:provider/provider.dart';
 import 'package:tripvisormajor/provider/packagedetailprovider.dart';
 import 'package:tripvisormajor/provider/tagprovider.dart';
 import 'package:tripvisormajor/provider/offersectionprovider.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 
 void main() {
+  Gemini.init(apiKey: 'AIzaSyAt8Rm7cQm2sBm6a4NjWZ7_Zm8SgUuL5bs');
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => Tagprovider()),

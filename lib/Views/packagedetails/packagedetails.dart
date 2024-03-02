@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tripvisormajor/provider/packagedetailprovider.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 
 class PackageDetails extends StatefulWidget {
   const PackageDetails({Key? key}) : super(key: key);
@@ -14,7 +15,8 @@ class _PackageDetailsState extends State<PackageDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Trek Details'),
+        automaticallyImplyLeading: false,
+        toolbarHeight: 0,
       ),
       body: ChangeNotifierProvider(
         create: (context) => PackageDetailsProvider(),
@@ -149,156 +151,240 @@ class _PackageDetailsState extends State<PackageDetails> {
           ),
         ),
       ),
+      floatingActionButton: ChatPopup(),
     );
   }
+}
 
-  Widget _buildHeader(Map<String, dynamic> trekDetails) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          trekDetails['trek_details']['name'],
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(height: 20),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            trekDetails['trek_details']['image'],
-            width: double.infinity,
-            height: 300,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(height: 20),
-        Text(
-          trekDetails['trek_details']['description'],
-          style: TextStyle(
-            fontSize: 16,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSection({
-    required String title,
-    required List<Widget> content,
-  }) {
-    return Card(
-      elevation: 4,
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            ...content,
-          ],
+Widget _buildHeader(Map<String, dynamic> trekDetails) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Text(
+        trekDetails['trek_details']['name'],
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
         ),
       ),
-    );
-  }
-
-  Widget _buildSubSection({
-    required String title,
-    required List<Widget> content,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+      SizedBox(height: 20),
+      ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.network(
+          trekDetails['trek_details']['image'],
+          width: double.infinity,
+          height: 300,
+          fit: BoxFit.cover,
         ),
-        SizedBox(height: 10),
-        ...content,
-      ],
-    );
-  }
-
-  Widget _buildListItem(String item) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 5),
-      child: Text(
-        '- $item',
+      ),
+      SizedBox(height: 20),
+      Text(
+        trekDetails['trek_details']['description'],
         style: TextStyle(
           fontSize: 16,
         ),
       ),
+    ],
+  );
+}
+
+Widget _buildSection({
+  required String title,
+  required List<Widget> content,
+}) {
+  return Card(
+    elevation: 4,
+    margin: EdgeInsets.symmetric(vertical: 10),
+    child: Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10),
+          ...content,
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _buildSubSection({
+  required String title,
+  required List<Widget> content,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        title,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      SizedBox(height: 10),
+      ...content,
+    ],
+  );
+}
+
+Widget _buildListItem(String item) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 5),
+    child: Text(
+      '- $item',
+      style: TextStyle(
+        fontSize: 16,
+      ),
+    ),
+  );
+}
+
+Widget _buildGuideAndPorterSection(
+    Map<String, dynamic> guide, Map<String, dynamic> porter) {
+  return Card(
+    elevation: 4,
+    margin: EdgeInsets.symmetric(vertical: 10),
+    child: Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Guide & Porter',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10),
+          ListTile(
+            title: Text(
+              'Guide: ${guide['name']}',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Experience: ${guide['experience']}'),
+                Text('Responsibilities:'),
+                ...guide['responsibilities']
+                    .map<Widget>((res) => Text('- $res')),
+              ],
+            ),
+          ),
+          ListTile(
+            title: Text(
+              'Porter: ${porter['name']}',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Role: ${porter['role']}'),
+                Text('Strength: ${porter['strength']}'),
+                Text('Responsibilities:'),
+                ...porter['responsibilities']
+                    .map<Widget>((res) => Text('- $res')),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+//Gemini chat bot as a side features
+
+class ChatPopup extends StatefulWidget {
+  const ChatPopup({Key? key}) : super(key: key);
+
+  @override
+  _ChatPopupState createState() => _ChatPopupState();
+}
+
+class _ChatPopupState extends State<ChatPopup> {
+  TextEditingController _controller = TextEditingController();
+  List<String> _messages = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: _openChatDialog,
+      child: const Icon(Icons.chat),
+      backgroundColor: Colors.blue,
     );
   }
 
-  Widget _buildGuideAndPorterSection(
-      Map<String, dynamic> guide, Map<String, dynamic> porter) {
-    return Card(
-      elevation: 4,
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Guide & Porter',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            ListTile(
-              title: Text(
-                'Guide: ${guide['name']}',
-                style: TextStyle(
-                  fontSize: 16,
+  void _openChatDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          alignment: Alignment.centerRight,
+          child: Container(
+            width: 400,
+            height: 500,
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: _messages.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        title: Text(_messages[index]),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Experience: ${guide['experience']}'),
-                  Text('Responsibilities:'),
-                  ...guide['responsibilities']
-                      .map<Widget>((res) => Text('- $res')),
-                ],
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Porter: ${porter['name']}',
-                style: TextStyle(
-                  fontSize: 16,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _controller,
+                          decoration: InputDecoration(
+                            hintText: 'Type your message...',
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: _sendMessage,
+                        icon: Icon(Icons.send),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Role: ${porter['role']}'),
-                  Text('Strength: ${porter['strength']}'),
-                  Text('Responsibilities:'),
-                  ...porter['responsibilities']
-                      .map<Widget>((res) => Text('- $res')),
-                ],
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
+  }
+
+  void _sendMessage() {
+    final gemini = Gemini.instance;
+    gemini
+        .text(_controller.text)
+        .then((value) => setState(() {
+              _messages.add(_controller.text);
+              _messages.add(value?.output ?? '');
+              _controller.clear();
+            }))
+        .catchError((e) => print(e));
   }
 }
