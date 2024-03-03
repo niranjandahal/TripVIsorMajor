@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tripvisormajor/Views/landingpage/landingscree.dart';
+import 'package:tripvisormajor/Views/landingpage/landingscreen.dart';
 import 'package:tripvisormajor/Views/loginRegister/Agency.dart';
 import 'package:tripvisormajor/Views/oneclickplan/oneclickplan.dart';
 import 'package:tripvisormajor/Views/packagedetails/packagedetails.dart';

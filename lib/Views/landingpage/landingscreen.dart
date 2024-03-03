@@ -41,7 +41,7 @@ class _LandingScreenState extends State<LandingScreen> {
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       body: CustomScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         slivers: [
@@ -145,14 +145,17 @@ class _LandingScreenState extends State<LandingScreen> {
               child: SingleChildScrollView(
                   physics: const NeverScrollableScrollPhysics(),
                   controller: _scrollController,
-                  child: Column(
-                    children: [
-                      TagDisplay(),
-                      OfferSection1(),
-                      OfferSection2(),
-                      OfferSection3(),
-                      CustomFooter(),
-                    ],
+                  child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        TagDisplay(),
+                        OfferSection1(),
+                        OfferSection2(),
+                        OfferSection3(),
+                        CustomFooter(),
+                      ],
+                    ),
                   )),
             ),
           ])),

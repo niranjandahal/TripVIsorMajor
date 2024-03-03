@@ -1,6 +1,24 @@
 import 'package:flutter/material.dart';
 
 class PackageDetailsProvider extends ChangeNotifier {
+  int _selectedIndex = 0;
+
+  List<String> detailstags = [
+    'Overview',
+    'Itinerary',
+    'Highlights',
+    'What to Pack',
+  ];
+
+  
+
+  int get selectedIndex => _selectedIndex;
+
+  void updateSelectedIndex(int index) {
+    _selectedIndex = index;
+    notifyListeners();
+  }
+
   List<Map<String, dynamic>> trekDetailsList = [
     {
       "trek_details": {

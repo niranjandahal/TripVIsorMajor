@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_login/animated_login.dart';
-import 'package:tripvisormajor/Views/landingpage/landingscree.dart';
+import 'package:tripvisormajor/Views/landingpage/landingscreen.dart';
 
 class UserSignIn extends StatefulWidget {
   const UserSignIn({super.key});

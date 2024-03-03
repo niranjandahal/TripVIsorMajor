@@ -20,11 +20,14 @@ class _HomeFullScreenShowState extends State<HomeFullScreenShow> {
       child: CarouselSlider(
         //show same image 5 times
         items: [
-          'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-          'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-          'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-          'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-          'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
+          // 'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
+          // 'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
+          // 'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
+          // 'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
+          // 'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
+          'https://i0.wp.com/beyondwildplaces.com/wp-content/uploads/2021/11/Trekking-in-Nepal-1.jpg',
+          'https://blog.weekendthrill.com/wp-content/uploads/2016/07/1-10.jpg',
+          'https://www.nepaltour.info/wp-content/uploads/2016/12/manang-trekking.jpg'
         ].map((i) {
           return Builder(
             builder: (BuildContext context) {

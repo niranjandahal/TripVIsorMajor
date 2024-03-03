@@ -26,7 +26,7 @@ class OfferSection1 extends StatelessWidget {
             SizedBox(height: 20),
             Wrap(
               spacing: 20,
-              runSpacing: 20,
+              runSpacing: 40,
               children: offerSectionProvider.offerlist1
                   .map((offer) => OfferCard(offer: offer))
                   .toList(),
@@ -46,8 +46,8 @@ class OfferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
-      width: MediaQuery.of(context).size.width * 0.4,
+      height: 350,
+      width: MediaQuery.of(context).size.width * 0.3,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
@@ -66,8 +66,8 @@ class OfferCard extends StatelessWidget {
             child: Image.network(
               offer['image'],
               width: double.infinity,
-              height: 300,
-              fit: BoxFit.cover,
+              height: 350,
+              fit: BoxFit.fill,
             ),
           ),
           Positioned(
@@ -78,7 +78,7 @@ class OfferCard extends StatelessWidget {
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                 // color: Color(0xFFFFC454).withOpacity(0.3),
-                color: Colors.black.withOpacity(0.4),
+                color: Colors.black.withOpacity(0.6),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(15),
                   bottomRight: Radius.circular(15),
@@ -179,13 +179,32 @@ class OfferCard extends StatelessWidget {
                                 weight: FontWeight.bold,
                               ),
                               SizedBox(width: 4),
-                              customText(
-                                  // '\$${offer['oldprice']}',
-                                  "200",
-                                  14,
-                                  color: Colors.white,
-                                  weight: FontWeight.bold,
-                                  cusdecoration: TextDecoration.lineThrough),
+                              // customText(
+                              //     // '\$${offer['oldprice']}',
+                              //     "200",
+                              //     14,
+                              //     color: Colors.white,
+                              //     weight: FontWeight.bold,
+                              //     cusdecoration: TextDecoration.lineThrough
+                              //     ),
+                              // customText(
+                              //   "200",
+                              //   14,
+                              //   color: Colors.white,
+                              //   weight: FontWeight.bold,
+                              //   cusdecoration: TextDecoration.lineThrough,
+
+                              //   // Specify line-through color
+                              // ),
+                              Text('\$ 4000  ',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.lineThrough,
+                                    decorationColor: Colors.red,
+                                    decorationThickness: 3,
+                                  )),
                             ],
                           ),
                         ],
@@ -234,7 +253,7 @@ class OfferCard extends StatelessWidget {
                 color: Colors.white,
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFFC454).withOpacity(1),
+                primary: Color(0xFFFFC454).withOpacity(0.8),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),

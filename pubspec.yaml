@@ -37,6 +37,7 @@ dev_dependencies:
   carousel_slider: ^4.2.1
   flutter_gemini: ^2.0.3
   flutter_lints: ^2.0.0
+  flutter_stripe: ^10.1.0
   flutter_test:
     sdk: flutter
   font_awesome_flutter: ^10.6.0
