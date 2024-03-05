@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tripvisormajor/Widgets/footer.dart';
+import 'package:tripvisormajor/Widgets/offersection/offersection1.dart';
+import 'package:tripvisormajor/Widgets/offersection/offersection2.dart';
+import 'package:tripvisormajor/Widgets/offersection/offersection3.dart';
 import 'package:tripvisormajor/backend/urlapi.dart';
 import 'package:tripvisormajor/entity/user/packages/bookpackage.dart';
 import 'package:tripvisormajor/provider/geminichatprovider.dart';
 import 'package:tripvisormajor/provider/packagedetailprovider.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tripvisormajor/provider/userorAgencyProvider.dart';
 
 class PackageDetails extends StatefulWidget {
-  const PackageDetails({Key? key}) : super(key: key);
+  final String pid;
+  PackageDetails({Key? key, required this.pid}) : super(key: key);
 
   @override
   State<PackageDetails> createState() => _PackageDetailsState();
 }
 
 class _PackageDetailsState extends State<PackageDetails> {
+  final userAgencyProvider userProvider = userAgencyProvider();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         toolbarHeight: 0,
       ),
       body: ChangeNotifierProvider(
@@ -33,6 +41,15 @@ class _PackageDetailsState extends State<PackageDetails> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Container(
+                      //print id
+                      child: Column(
+                        children: [
+                          Text('Package ID: ${widget.pid}'),
+                          Text('User ID: ${userProvider.userid}'),
+                        ],
+                      ),
+                    ),
                     _buildHeader(context, trekDetails),
                     SizedBox(height: 40),
 //*************************************************/
@@ -113,10 +130,6 @@ class _PackageDetailsState extends State<PackageDetails> {
 //*************************************************/
                               //footer section
 //*************************************************/
-                              Container(
-                                color: Colors.red,
-                                height: 500,
-                              )
                             ],
                           ),
                         ),
@@ -155,6 +168,14 @@ class _PackageDetailsState extends State<PackageDetails> {
                     //end of the first row
                     //********************************************* */
                     //********************************************* */
+                    const SizedBox(height: 20),
+                    _similarpackages(),
+                    const SizedBox(height: 20),
+
+                    _recommendedpackages(),
+                    const SizedBox(height: 20),
+
+                    CustomFooter(),
                   ],
                 ),
               );
@@ -312,11 +333,20 @@ class _PackageDetailsState extends State<PackageDetails> {
                           //button with check availability
                           ElevatedButton(
                             onPressed: () {
+                              //book page with pid as parameter
+                              print(trekDetails['trek_details']['id']);
+                              // GoRouter.of(context).go(
+                              //     '/bookpackage/${trekDetails['trek_details']['id']}');
+                              // GoRouter.of(context).go(
+                              //     '/bookpackage/${trekDetails['trek_details']['id']}');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          BookPackages(id: 221)));
+                                    builder: (context) => BookPackages(
+                                      pid: widget.pid,
+                                      uid: userProvider.userid,
+                                    ),
+                                  ));
                             },
                             child: Text('Book Packages',
                                 style: TextStyle(
@@ -401,7 +431,7 @@ class _PackageDetailsState extends State<PackageDetails> {
           Text(
             "Trek Overview",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -434,17 +464,38 @@ class _PackageDetailsState extends State<PackageDetails> {
     );
   }
 
-  Widget _buildDetailItem(String label, String? value) {
-    return Row(
-      children: [
-        Text(
-          label + ": ",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        Expanded(child: Text(value ?? "")),
-      ],
+  Widget _buildDetailItem(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //better font and size with beautiful ui
+          Text(
+            label + ": ",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Expanded(child: Text(value)),
+        ],
+      ),
     );
   }
+
+  // Widget _buildDetailItem(String label, String? value) {
+  //   return Row(
+  //     children: [
+  //       Text(
+  //         label + ": ",
+  //         style: TextStyle(fontWeight: FontWeight.bold),
+  //       ),
+  //       Expanded(child: Text(value ?? "")),
+  //     ],
+  //   );
+  // }
 
   _buildadditional_information(
       BuildContext context, Map<String, dynamic> additionalInformation) {
@@ -666,6 +717,18 @@ class _PackageDetailsState extends State<PackageDetails> {
       }).toList(),
     );
   }
+
+  Widget _similarpackages() {
+    return OfferSection2(
+      title: "Similar Packages",
+    );
+  }
+
+  Widget _recommendedpackages() {
+    return OfferSection3(
+      title: "Recommended packages",
+    );
+  }
 }
 
 Widget _buildTrekOverview(context, Map<String, dynamic> trekDetails) {
@@ -708,42 +771,6 @@ Widget _buildTrekOverview(context, Map<String, dynamic> trekDetails) {
         ),
       ),
       SizedBox(height: 20),
-      Text(
-        'Highlights',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      SizedBox(height: 20),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          trekDetails['trek_details']['highlights'].length,
-          (index) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Text(
-                      trekDetails['trek_details']['highlights'][index],
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      ),
     ],
   );
 }

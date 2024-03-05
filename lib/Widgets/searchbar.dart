@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tripvisormajor/Widgets/searchpage.dart';
 
 class customsearchbar extends StatefulWidget {
   const customsearchbar({super.key});
@@ -28,8 +30,21 @@ class _customsearchbarState extends State<customsearchbar> {
         ],
       ),
       child: TextField(
-        cursorColor: Colors.blue.withOpacity(0.5),
-        cursorHeight: 5,
+        onSubmitted: (value) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SearchPage(trekkingList: [
+                        'Annapurna Base Camp',
+                        'Everest Base Camp',
+                        'Langtang Valley',
+                        'Manaslu Circuit',
+                        'Upper Mustang',
+                      ])));
+        },
+        cursorColor: Colors.black,
+        cursorHeight: 23,
+        cursorWidth: 1.2,
         decoration: InputDecoration(
           hintText: 'Search',
           border: InputBorder.none,

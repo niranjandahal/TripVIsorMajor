@@ -1,9 +1,9 @@
-import 'dart:js_util';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tripvisormajor/Components/customText.dart';
+import 'package:tripvisormajor/Views/packagedetails/packagedetails.dart';
 import 'package:tripvisormajor/provider/offersectionprovider.dart';
+import 'package:go_router/go_router.dart';
 
 class OfferSection1 extends StatelessWidget {
   const OfferSection1({Key? key}) : super(key: key);
@@ -75,13 +75,16 @@ class OfferCard extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              padding: EdgeInsets.all(16),
+              height: 350,
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 // color: Color(0xFFFFC454).withOpacity(0.3),
-                color: Colors.black.withOpacity(0.6),
+                color: Colors.black.withOpacity(0.7),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(15),
                   bottomRight: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                  topLeft: Radius.circular(15),
                 ),
               ),
               child: Column(
@@ -243,9 +246,8 @@ class OfferCard extends StatelessWidget {
             top: 10,
             right: 10,
             child: ElevatedButton(
-              onPressed: () {
-                // Implement action
-              },
+              onPressed: () =>
+                  GoRouter.of(context).go('/packagedetails/${offer['id']}'),
               child: customText(
                 'Book Now',
                 14,

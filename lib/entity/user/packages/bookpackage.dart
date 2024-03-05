@@ -1,16 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:tripvisormajor/backend/urlapi.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:tripvisormajor/provider/userorAgencyProvider.dart';
 
 class BookPackages extends StatefulWidget {
-  final int id;
+  final String pid;
+  final String uid;
 
-  const BookPackages({Key? key, required this.id}) : super(key: key);
+  const BookPackages({Key? key, required this.pid, required this.uid})
+      : super(key: key);
 
   @override
   State<BookPackages> createState() => _BookPackagesState();
 }
 
 class _BookPackagesState extends State<BookPackages> {
+  final userAgencyProvider userProvider = userAgencyProvider();
+  Future<void> _confirmPayment() async {
+    //post request to your backend to create a payment method
+    String url = bookpageurl;
+    //post request to your backend to create a payment method
+    try {
+      final response = await http.post(Uri.parse(url), body: {
+        'name': userProvider.UserName,
+        'userId': widget.uid,
+        'packageId': widget.pid,
+      });
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   TextEditingController _cardNumberController = TextEditingController();
@@ -44,6 +66,8 @@ class _BookPackagesState extends State<BookPackages> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(widget.pid),
+                      Text(widget.uid),
                       Text(
                         'Selected Package Description',
                         style: TextStyle(
@@ -53,7 +77,7 @@ class _BookPackagesState extends State<BookPackages> {
                       ),
                       SizedBox(height: 10.0),
                       Text(
-                        'Package ID: ${widget.id}',
+                        'Package ID: ${widget.pid ?? ""}',
                         style: TextStyle(fontSize: 16.0),
                       ),
                       SizedBox(height: 10.0),
@@ -111,9 +135,9 @@ class _BookPackagesState extends State<BookPackages> {
                     ),
                     SizedBox(height: 20.0),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          // _confirmPayment();
+                          await _confirmPayment();
                         }
                       },
                       child: Text('Confirm Payment'),
@@ -127,26 +151,4 @@ class _BookPackagesState extends State<BookPackages> {
       ),
     );
   }
-
-//   Future<void> _confirmPayment() async {
-//     // Get card details
-//     final CreditCard testCard = CreditCard(
-//       number: _cardNumberController.text,
-//       expMonth: int.parse(_expiryDateController.text.split('/')[0]),
-//       expYear: int.parse(_expiryDateController.text.split('/')[1]),
-//       cvc: _cvvController.text,
-//     );
-
-//     // Create payment method
-//     final paymentMethod = await Stripe.instance.createPaymentMethod(
-//       PaymentMethodParams.card(testCard),
-//     );
-
-//     // Handle the payment method response and process further
-//     // Here, you can make a call to your backend server to confirm the payment
-
-//     // For testing purposes, print payment method id
-//     print(paymentMethod.id);
-//   }
-// }
 }

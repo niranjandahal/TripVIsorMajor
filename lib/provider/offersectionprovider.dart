@@ -1,277 +1,153 @@
 import 'package:flutter/material.dart';
+import 'package:tripvisormajor/backend/urlapi.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class offersectionprovider extends ChangeNotifier {
+  //only one instance of provider class
+  static offersectionprovider? _instance;
+  offersectionprovider._() {
+    _instance = this;
+  }
+  factory offersectionprovider() {
+    if (_instance == null) {
+      return offersectionprovider._();
+    }
+    return _instance!;
+  }
+
+  //
+  Future<void> loadOfferList1() async {
+    if (offerlist1loaded == true) {
+      return;
+    } else {
+      String url = offerlist1url;
+      try {
+        final response = await http.get(Uri.parse(url));
+        if (response.statusCode == 200) {
+          print(response.body);
+          List<dynamic> responseData = jsonDecode(response.body);
+          offerlist1.clear();
+          offerlist1.addAll(responseData.map((item) =>
+              item as Map<String, dynamic>)); // Convert each item to Map
+          offerlist1loaded = true;
+          notifyListeners();
+        } else {
+          print("Invalid status code: ${response.statusCode}");
+        }
+      } catch (error) {
+        print('Error: $error');
+      }
+    }
+  }
+
+  Future<void> loadOfferList2() async {
+    if (offerlist2loaded == true) {
+      return;
+    } else {
+      String url = offerlist1ur2;
+      try {
+        final response = await http.get(Uri.parse(url));
+        if (response.statusCode == 200) {
+          print(response.body);
+          List<dynamic> responseData = jsonDecode(response.body);
+          offerlist2.clear();
+          offerlist2.addAll(responseData.map((item) =>
+              item as Map<String, dynamic>)); // Convert each item to Map
+          offerlist2loaded = true;
+          notifyListeners();
+        } else {
+          print("Invalid status code: ${response.statusCode}");
+        }
+      } catch (error) {
+        print('Error: $error');
+      }
+    }
+  }
+
+  Future<void> loadOfferList3() async {
+    if (offerlist3loaded == true) {
+      return;
+    } else {
+      String url = offerlist1ur3;
+      try {
+        final response = await http.get(Uri.parse(url));
+        if (response.statusCode == 200) {
+          print(response.body);
+          List<dynamic> responseData = jsonDecode(response.body);
+          offerlist3.clear();
+          offerlist3.addAll(responseData.map((item) =>
+              item as Map<String, dynamic>)); // Convert each item to Map
+          offerlist3loaded = true;
+          notifyListeners();
+        } else {
+          print("Invalid status code: ${response.statusCode}");
+        }
+      } catch (error) {
+        print('Error: $error');
+      }
+    }
+  }
+
+  // Future<void> loadofferlist2() async {
+  //   if (offerlist2loaded == true) {
+  //     return;
+  //   } else {
+  //     String url = offerlist1ur2;
+  //     try {
+  //       final response = await http.get(Uri.parse(url));
+  //       if (response.statusCode == 200) {
+  //         Map<String, dynamic> responseData = jsonDecode(response.body);
+  //         offerlist2.clear();
+  //         for (var i = 0; i < responseData['data'].length; i++) {
+  //           offerlist2.add(responseData['data'][i]);
+  //         }
+  //         offerlist2loaded = true;
+  //         notifyListeners();
+  //       } else {
+  //         print("Invalid status code: ${response.statusCode}");
+  //       }
+  //     } catch (error) {
+  //       print('Error: $error');
+  //     }
+  //   }
+  // }
+
+  // Future<void> loadofferlist3() async {
+  //   if (offerlist3loaded == true) {
+  //     return;
+  //   } else {
+  //     String url = offerlist1ur3;
+  //     try {
+  //       final response = await http.get(Uri.parse(url));
+  //       if (response.statusCode == 200) {
+  //         Map<String, dynamic> responseData = jsonDecode(response.body);
+  //         offerlist3.clear();
+  //         for (var i = 0; i < responseData['data'].length; i++) {
+  //           offerlist3.add(responseData['data'][i]);
+  //         }
+  //         offerlist3loaded = true;
+  //         notifyListeners();
+  //       } else {
+  //         print("Invalid status code: ${response.statusCode}");
+  //       }
+  //     } catch (error) {
+  //       print('Error: $error');
+  //     }
+  //   }
+  // }
+
   int datacount = 0;
 
-  // List<String> offerlist1 = [
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  // ];+
-
-  final List<Map<String, dynamic>> offerlist1 = [
-    {
-      "id": "offer1",
-      "name": "Annapurna Base Camp Trek",
-      "region": "Annapurna",
-      "duration": 14,
-      "difficulty": "Moderate",
-      "highlights": [
-        "Stunning views of Annapurna I, Machapuchare, and Hiunchuli",
-        "Diverse landscapes, from lush valleys to glaciers",
-        "Traditional villages and cultural experiences",
-        "Opportunity to see unique flora and fauna"
-      ],
-      "price": 1500,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Embark on a classic journey to the foot of Annapurna I, Nepal's 10th highest peak. This moderate trek offers breathtaking scenery, diverse landscapes, and cultural encounters."
-    },
-    {
-      "id": "offer2",
-      "name": "Everest Base Camp Trek",
-      "region": "Khumbu",
-      "duration": 16,
-      "difficulty": "Challenging",
-      "highlights": [
-        "Stand at the foot of the world's highest mountain",
-        "Experience Sherpa culture and traditions",
-        "Witness breathtaking views of the Khumbu Valley and surrounding peaks",
-        "Visit Gokyo Lakes and Kala Patthar for panoramic views"
-      ],
-      "price": 3000,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Challenge yourself on this iconic trek to the base camp of Mt. Everest. Experience the beauty and grandeur of the Himalayas, Sherpa culture, and breathtaking panoramas."
-    },
-    {
-      "id": "offer3",
-      "name": "Langtang Valley Trek",
-      "region": "Langtang",
-      "duration": 10,
-      "difficulty": "Moderate",
-      "highlights": [
-        "Explore the Langtang Valley, known as the 'Valley of Glaciers'",
-        "Visit Kyanjin Gompa and Tserko Ri for stunning views",
-        "Experience Tamang culture and traditions",
-        "Opportunity to see unique flora and fauna"
-      ],
-      "price": 1200,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Trek through the Langtang Valley, a region known for its natural beauty and cultural diversity. This moderate trek offers stunning views, unique flora and fauna, and cultural experiences."
-    },
-    {
-      "id": "offer4",
-      "name": "Manaslu Circuit Trek",
-      "region": "Manaslu",
-      "duration": 18,
-      "difficulty": "Challenging",
-      "highlights": [
-        "Trek around the world's eighthhighest peak",
-        "Experience diverse landscapes and ecosystems",
-        "Cross the challenging Larkya La Pass",
-        "Visit traditional villages and monasteries"
-      ],
-      "price": 2500,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Embark on an off-the-beaten-path adventure around Manaslu, a region known for its natural beauty and cultural diversity. This challenging trek offers stunning views, diverse landscapes, and cultural encounters."
-    },
-    {
-      "id": "offer5",
-      "name": "Upper Mustang Trek",
-      "region": "Mustang",
-      "duration": 14,
-      "difficulty": "Moderate",
-      "highlights": [
-        "Explore the 'Forbidden Kingdom' of Mustang",
-        "Visit ancient monasteries and caves",
-        "Experience Tibetan culture and traditions",
-        "Witness unique landscapes and rock formations"
-      ],
-      "price": 2000,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Journey to the remote and mystical region of Upper Mustang, known for its ancient monasteries, caves, and unique landscapes. This moderate trek offers a glimpse into a bygone era."
-    }
-  ];
+  final List<Map<String, dynamic>> offerlist1 = [];
 
   bool offerlist1loaded = false;
 
-  // List<String> offerlist2 = [
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  // ];
-
-  List<Map<String, dynamic>> offerlist2 = [
-    {
-      "id": "offer1",
-      "name": "Annapurna Base Camp Trek",
-      "region": "Annapurna",
-      "duration": 14,
-      "difficulty": "Moderate",
-      "highlights": [
-        "Stunning views of Annapurna I, Machapuchare, and Hiunchuli",
-        "Diverse landscapes, from lush valleys to glaciers",
-        "Traditional villages and cultural experiences",
-        "Opportunity to see unique flora and fauna"
-      ],
-      "price": 1500,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Embark on a classic journey to the foot of Annapurna I, Nepal's 10th highest peak. This moderate trek offers breathtaking scenery, diverse landscapes, and cultural encounters."
-    },
-    {
-      "id": "offer2",
-      "name": "Everest Base Camp Trek",
-      "region": "Khumbu",
-      "duration": 16,
-      "difficulty": "Challenging",
-      "highlights": [
-        "Stand at the foot of the world's highest mountain",
-        "Experience Sherpa culture and traditions",
-        "Witness breathtaking views of the Khumbu Valley and surrounding peaks",
-        "Visit Gokyo Lakes and Kala Patthar for panoramic views"
-      ],
-      "price": 3000,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Challenge yourself on this iconic trek to the base camp of Mt. Everest. Experience the beauty and grandeur of the Himalayas, Sherpa culture, and breathtaking panoramas."
-    },
-    {
-      "id": "offer3",
-      "name": "Langtang Valley Trek",
-      "region": "Langtang",
-      "duration": 10,
-      "difficulty": "Moderate",
-      "highlights": [
-        "Explore the Langtang Valley, known as the 'Valley of Glaciers'",
-        "Visit Kyanjin Gompa and Tserko Ri for stunning views",
-        "Experience Tamang culture and traditions",
-        "Opportunity to see unique flora and fauna"
-      ],
-      "price": 1200,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Trek through the Langtang Valley, a region known for its natural beauty and cultural diversity. This moderate trek offers stunning views, unique flora and fauna, and cultural experiences."
-    },
-    {
-      "id": "offer4",
-      "name": "Manaslu Circuit Trek",
-      "region": "Manaslu",
-      "duration": 18,
-      "difficulty": "Challenging",
-      "highlights": [
-        "Trek around the world's eighthhighest peak",
-        "Experience diverse landscapes and ecosystems",
-        "Cross the challenging Larkya La Pass",
-        "Visit traditional villages and monasteries"
-      ],
-      "price": 2500,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Embark on an off-the-beaten-path adventure around Manaslu, a region known for its natural beauty and cultural diversity. This challenging trek offers stunning views, diverse landscapes, and cultural encounters."
-    },
-    {
-      "id": "offer5",
-      "name": "Upper Mustang Trek",
-      "region": "Mustang",
-      "duration": 14,
-      "difficulty": "Moderate",
-      "highlights": [
-        "Explore the 'Forbidden Kingdom' of Mustang",
-        "Visit ancient monasteries and caves",
-        "Experience Tibetan culture and traditions",
-        "Witness unique landscapes and rock formations"
-      ],
-      "price": 2000,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Journey to the remote and mystical region of Upper Mustang, known for its ancient monasteries, caves, and unique landscapes. This moderate trek offers a glimpse into a bygone era."
-    },
-  ];
+  List<Map<String, dynamic>> offerlist2 = [];
 
   bool offerlist2loaded = false;
 
-  // List<String> offerlist3 = [
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  //   'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}',
-  // ];
-
-  List<Map<String, dynamic>> offerlist3 = [
-    {
-      "id": "premium1",
-      "name": "Luxury Everest Expedition",
-      "region": "Khumbu",
-      "duration": 20,
-      "difficulty": "Challenging",
-      "highlights": [
-        "Summiting Mount Everest",
-        "Luxurious accommodations throughout the trek",
-        "Professional cinematographer capturing your journey",
-        "Custom drone shots of your trek",
-        "Compilation video of your trek after it's over"
-      ],
-      "price": 10000,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Embark on the ultimate luxury trekking experience to Everest Base Camp. This premium package includes sumptuous accommodations, professional cinematography, and drone shots to capture every moment of your journey."
-    },
-    {
-      "id": "premium2",
-      "name": "Helicopter Tour of the Himalayas",
-      "region": "Various",
-      "duration": 1,
-      "difficulty": "Easy",
-      "highlights": [
-        "Scenic helicopter tour of the Himalayas",
-        "Aerial views of Mount Everest, Annapurna, and more",
-        "Landing at Everest Base Camp or Annapurna Base Camp",
-        "Champagne breakfast at the mountain base camp"
-      ],
-      "price": 5000,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Experience the grandeur of the Himalayas on a private helicopter tour. This premium package offers breathtaking aerial views of the world's highest peaks, with the option to land at Everest or Annapurna Base Camp."
-    },
-    {
-      "id": "premium3",
-      "name": "Luxury Annapurna Sanctuary Trek",
-      "region": "Annapurna",
-      "duration": 14,
-      "difficulty": "Moderate",
-      "highlights": [
-        "Sumptuous accommodations and gourmet meals",
-        "Professional guide and porter service",
-        "Private helicopter transfer to and from the trek",
-        "Customized itinerary and personalized service"
-      ],
-      "price": 8000,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQks-8u2-wtDvBupaGzpoyLx4ap5Pf-vGICAXxynGS7PA&s",
-      "description":
-          "Embark on a luxurious trek to the Annapurna Sanctuary, with private helicopter transfers, gourmet meals, and personalized service. This premium package offers the ultimate in comfort and convenience."
-    },
-  ];
+  List<Map<String, dynamic>> offerlist3 = [];
 
   bool offerlist3loaded = false;
 

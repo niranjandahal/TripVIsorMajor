@@ -1,50 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
-class CustomFooter extends StatefulWidget {
-  @override
-  State<CustomFooter> createState() => _CustomFooterState();
-}
-
-class _CustomFooterState extends State<CustomFooter>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 5), // Adjust the duration as needed
-      vsync: this,
-    )..repeat(reverse: false);
-  }
-
+class CustomFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
       padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
-      ),
+      color: Colors.grey[200],
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Sign up to our newsletter to receive updates',
+            'Sign up for our newsletter',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.blue[800],
             ),
-            textAlign: TextAlign.center,
           ),
           SizedBox(height: 10),
           Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            'Get the latest updates and offers directly to your inbox.',
             style: TextStyle(
-              fontSize: 15,
-              color: Colors.grey[500],
+              fontSize: 14,
+              color: Colors.grey[700],
             ),
             textAlign: TextAlign.center,
           ),
@@ -55,92 +33,81 @@ class _CustomFooterState extends State<CustomFooter>
               Expanded(
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'email@email.com',
+                    hintText: 'Enter your email',
                     filled: true,
                     fillColor: Colors.white,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5),
+                    ),
+                    suffixIcon: ElevatedButton(
+                      onPressed: () {
+                        // Handle subscription logic
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue[700],
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 15,
+                        ),
+                      ),
+                      child: Text(
+                        'Subscribe',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  // Handle subscription logic
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue[700],
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                ),
-                child: Text(
-                  'Subscribe',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          Wrap(
+            spacing: 20,
+            runSpacing: 10,
+            alignment: WrapAlignment.center,
+            children: [
+              FooterLink('About Us'),
+              FooterLink('Contact Us'),
+              FooterLink('Terms of Service'),
+              FooterLink('Privacy Policy'),
             ],
           ),
           SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FooterLink('Footerlink 1'),
-              FooterLink('Footerlink 2'),
-              FooterLink('Footerlink 3'),
-              FooterLink('Footerlink 4'),
+              SocialLink('https://example.com/social1',
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Facebook_icon.svg/1200px-Facebook_icon.svg.png'),
+              const SizedBox(width: 30),
+              SocialLink('https://example.com/social2',
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png'),
+              const SizedBox(width: 30),
+              SocialLink('https://example.com/social3',
+                  'https://cdn-icons-png.flaticon.com/256/1384/1384060.png'),
+              const SizedBox(width: 30),
+              SocialLink('https://example.com/social4',
+                  'https://cdn-icons-png.flaticon.com/512/3670/3670157.png'),
+              const SizedBox(width: 30),
             ],
           ),
           SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SocialLink('https://example.com/social1'),
-              SocialLink('https://example.com/social2'),
-              SocialLink('https://example.com/social3'),
-              SocialLink('https://example.com/social4'),
-            ],
+          Image.asset(
+            'asset/images/icon.png',
+            width: 70,
+            height: 70,
           ),
+          //copyright
           SizedBox(height: 20),
-          Center(
-            child: Image.network(
-              'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}', // Provide the path to your logo image
-              width: 100,
-              height: 100,
+          Text(
+            '© 2024 TripVisor. All rights reserved.',
+            style: TextStyle(
+              color: Colors.grey[700],
             ),
           ),
-          //lottie animation
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              return Transform.translate(
-                offset: Offset(
-                  MediaQuery.of(context).size.width * _controller.value,
-                  0.0,
-                ),
-                child: Lottie.asset(
-                  'asset/animation/cycleanimation.json',
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.fill,
-                ),
-              );
-            },
-          ),
-          // Transform.translate(
-          //   offset: Offset(MediaQuery.of(context).size.width, 0),
-          //   child: Lottie.asset(
-          //     'asset/animation/cycleanimation.json',
-          //     width: 100,
-          //     height: 100,
-          //     fit: BoxFit.fill,
-          //   ),
-          // ),
         ],
       ),
     );
@@ -154,18 +121,15 @@ class FooterLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: TextButton(
-        onPressed: () {
-          // Handle link tap
-        },
-        child: Text(
-          label,
-          style: TextStyle(
-            color: Colors.blue[700],
-            decoration: TextDecoration.underline,
-          ),
+    return TextButton(
+      onPressed: () {
+        // Handle link tap
+      },
+      child: Text(
+        label,
+        style: TextStyle(
+          color: Colors.blue[700],
+          decoration: TextDecoration.underline,
         ),
       ),
     );
@@ -174,22 +138,20 @@ class FooterLink extends StatelessWidget {
 
 class SocialLink extends StatelessWidget {
   final String url;
+  final String iconPath;
 
-  SocialLink(this.url);
+  SocialLink(this.url, this.iconPath);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: InkWell(
-        onTap: () {
-          // Handle social link tap
-        },
-        child: Image.network(
-          'https://source.unsplash.com/random/300x200?sig=${DateTime.now().millisecondsSinceEpoch}', // Provide the path to your social icons
-          width: 25,
-          height: 25,
-        ),
+    return InkWell(
+      onTap: () {
+        // Handle social link tap
+      },
+      child: Image.network(
+        iconPath,
+        width: 50,
+        height: 50,
       ),
     );
   }

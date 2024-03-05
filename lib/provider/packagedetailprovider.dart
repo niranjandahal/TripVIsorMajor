@@ -22,6 +22,7 @@ class PackageDetailsProvider extends ChangeNotifier {
   List<Map<String, dynamic>> trekDetailsList = [
     {
       "trek_details": {
+        "id": "11",
         "name": "Everest Base Camp Trek",
         "region": "Everest",
         "duration": 16,

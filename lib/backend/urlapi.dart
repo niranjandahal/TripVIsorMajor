@@ -1,23 +1,24 @@
 //IPv4 Address. . . . . . . . . . . : 192.168.56.1
-String localhost = "192.168.56.1";
-int port = 5000;
+String localhost = "192.168.15.97:5000";
+String port = "5000";
 
 //login and register
-String UserLoginUrl = "http://$localhost:$port/api/user/login";
-String UserRegisterUrl = "http://$localhost:$port/api/user/register";
-String AgencyLogin = "http://$localhost:$port/api/agency/login";
-String AgencyRegister = "http://$localhost:$port/api/agency/register";
+String UserLoginUrl = "http://$localhost/api/v1/user/login";
+String AgencyLoginUrl = "http://$localhost/api/v1/agency/login";
+String UserRegisterUrl = "http://$localhost/api/user/register";
+String AgencyRegisterUrl = "http://$localhost/api/agency/register";
 
-//packages
-String gethomepageimages = "http://$localhost:$port/api/packages/homepage";
-String featuredpackagetagdandimagedetailurl =
-    "http://$localhost:$port/api/packages/featured";
-String offersection1packages =
-    "http://$localhost:$port/api/packages/offersection1";
-String offersection2packages =
-    "http://$localhost:$port/api/packages/offersection2";
-String offersection3packages =
-    "http://$localhost:$port/api/packages/offersection3";
+//homeimages
+String gethomepageimages = "http://$localhost/api/v1/homepage/images";
+
+//homepackagesall
+String getallhomepagepackages = "http://$localhost/api/v1/homepage/";
+
+String offerlist1url = "http://$localhost/api/v1/homepage/";
+String offerlist1ur2 = "http://$localhost/api/v1/homepage/";
+String offerlist1ur3 = "http://$localhost/api/v1/homepage/";
+
+String bookpageurl = "http://$localhost/api/v1/book/";
 
 //user functionality
 String SearchPackagesurl = "http://$localhost:$port/api/packages/search";
@@ -37,5 +38,3 @@ String AdminLoginUrl = "http://$localhost:$port/api/admin/login";
 String RemoveAgencyurl = "http://$localhost:$port/api/admin/removeagency";
 String AdminDeletePackagesurl =
     "http://$localhost:$port/api/admin/deletepackage";
-
-

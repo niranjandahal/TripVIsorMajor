@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:animated_login/animated_login.dart';
 import 'package:tripvisormajor/Views/landingpage/landingscreen.dart';
+import 'package:tripvisormajor/entity/Agency/agencypanel.dart';
+import 'package:tripvisormajor/backend/urlapi.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:provider/provider.dart';
+import 'package:tripvisormajor/provider/userorAgencyProvider.dart';
+import 'package:go_router/go_router.dart';
 
 class AgencySignIn extends StatefulWidget {
   const AgencySignIn({super.key});
@@ -10,10 +17,52 @@ class AgencySignIn extends StatefulWidget {
 }
 
 class _AgencySignInState extends State<AgencySignIn> {
+  final userAgencyProvider userProvider = userAgencyProvider();
+
+  Future<void> AgencyLogin(String Email, String Password) async {
+    // Your backend API login endpoint
+    String apiUrl = AgencyLoginUrl;
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'email': Email,
+          'password': Password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        var data = response.body;
+        print(jsonDecode(data)['user']['name']);
+        userProvider.setAgencylogin(jsonDecode(data)['user']['name']);
+        userProvider.setAgencyid(jsonDecode(data)['user']['userId']);
+      } else {
+        // Handle other status codes (e.g., 400, 401) accordingly
+        print('Login Failed');
+      }
+    } catch (error) {
+      // Handle errors such as connection issues
+      print('Error: $error');
+    }
+  }
+
+  Future<void> AgencyRegister() async {
+    String url = AgencyRegisterUrl;
+    var response = await http.post(Uri.parse(url), body: {
+      "email": "email",
+      "password": "password",
+    });
+    print(response.body);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedLogin(
+        signUpMode: SignUpModes.both,
         loginTexts: LoginTexts(
           welcome: "Welcome to Tripvisor",
           login: "Login",
@@ -76,19 +125,21 @@ class _AgencySignInState extends State<AgencySignIn> {
           socialHighlightColor: Colors.blue,
           changeLangContentColor: Colors.blue,
         ),
-        onLogin: (loginData) {
+        onSignup: (SignUpData) {
+          print("hello");
+          print(SignUpData);
           return Navigator.push(context,
               MaterialPageRoute(builder: (context) => LandingScreen()));
         },
-        onSignup: (signupData) {
-          return Navigator.push(context,
-              MaterialPageRoute(builder: (context) => LandingScreen()));
+        onLogin: (loginData) async {
+          print(loginData);
+          await AgencyLogin(loginData.email, loginData.password);
+          context.go('/');
         },
         onForgotPassword: (recoverData) {
           return Navigator.push(context,
               MaterialPageRoute(builder: (context) => LandingScreen()));
         },
-        backgroundImage: "asset/images/icon.png",
         privacyPolicyChild: Text(
           "By signing up, you agree to our Terms of Use and Privacy Policy",
           style: TextStyle(

@@ -23,7 +23,9 @@ class Tagprovider extends ChangeNotifier {
   ];
 
 //ads images section
-  List<String> adsimglist = [];
+  List<String> adsimglist = [
+    
+  ];
 
   bool adsimglistloaded = false;
 
