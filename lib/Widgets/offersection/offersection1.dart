@@ -247,7 +247,7 @@ class OfferCard extends StatelessWidget {
             right: 10,
             child: ElevatedButton(
               onPressed: () =>
-                  GoRouter.of(context).go('/packagedetails/${offer['id']}'),
+                  GoRouter.of(context).go('/packagedetails/${offer['package']}'),
               child: customText(
                 'Book Now',
                 14,

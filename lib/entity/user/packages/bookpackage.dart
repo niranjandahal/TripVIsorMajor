@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:tripvisormajor/backend/urlapi.dart';
@@ -23,21 +25,31 @@ class _BookPackagesState extends State<BookPackages> {
     String url = bookpageurl;
     //post request to your backend to create a payment method
     try {
-      final response = await http.post(Uri.parse(url), body: {
-        'name': userProvider.UserName,
-        'userId': widget.uid,
-        'packageId': widget.pid,
-      });
+      print(userProvider.UserName);
+      print(widget.uid);
+      print(widget.pid);
+      final response = await http.post(
+        Uri.parse(bookpageurl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'name': userProvider.UserName,
+          'userId': widget.uid,
+          'packageId': widget.pid,
+        }),
+      );
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else {
+        print("Invalid status code: ${response.statusCode}");
+      }
     } catch (error) {
       print('Error: $error');
     }
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  TextEditingController _cardNumberController = TextEditingController();
-  TextEditingController _expiryDateController = TextEditingController();
-  TextEditingController _cvvController = TextEditingController();
 
   // Stripe publishable key
   final String _stripePublishableKey = 'your_stripe_publishable_key';
@@ -97,42 +109,6 @@ class _BookPackagesState extends State<BookPackages> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextFormField(
-                      controller: _cardNumberController,
-                      decoration: InputDecoration(
-                        labelText: 'Card Number',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter card number';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      controller: _expiryDateController,
-                      decoration: InputDecoration(
-                        labelText: 'Expiry Date',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter expiry date';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      controller: _cvvController,
-                      decoration: InputDecoration(
-                        labelText: 'CVV',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter CVV';
-                        }
-                        return null;
-                      },
-                    ),
                     SizedBox(height: 20.0),
                     ElevatedButton(
                       onPressed: () async {

@@ -39,7 +39,7 @@ class _OfferSection2State extends State<OfferSection2> {
                   final offer = offerSectionProvider.offerlist2[index];
                   return InkWell(
                     onTap: () => GoRouter.of(context)
-                        .go('/packagedetails/${offer['id']}'),
+                        .go('/packagedetails/${offer['package']}'),
                     child: Container(
                       width: 300,
                       height: 400,
