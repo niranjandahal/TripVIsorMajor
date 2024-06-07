@@ -1,49 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TripVisor</title>
-</head>
-<body>
-    <h1>TripVisor</h1>
-    <p>TripVisor is a web-based application designed to simplify the exploration and booking of trekking packages in Nepal. With its user-friendly interface, this platform empowers individuals to effortlessly discover and select their desired trekking destinations.</p>
+# TripVisor
 
-    <h2>Features</h2>
-    <ul>
-        <li>Most popular trekking destination and exclusive deals suggestion for new users</li>
-        <li>User-friendly travel planning interface to seamlessly navigate and plan trips</li>
-        <li>Up-to-date information hub for tourists</li>
-        <li>Relevant packages listing for tourists according to specific destinations</li>
-        <li>Complete overall details of booked travel packages</li>
-        <li>AI Chat support</li>
-    </ul>
+TripVisor is a web-based application designed to simplify the exploration and booking of trekking packages in Nepal. With its user-friendly interface, this platform empowers individuals to effortlessly discover and select their desired trekking destinations. Users can browse through a diverse catalog of trekking packages, each carefully curated and uploaded by accredited agencies. These packages feature essential details including pricing, itineraries, and other information, facilitating informed decision-making for aspiring adventurers.
 
-    <h2>Installation</h2>
-    <ol>
-        <li>Clone the repository: <code>git clone https://github.com/your-username/tripvisor.git</code></li>
-        <li>Navigate to the project directory: <code>cd tripvisor</code></li>
-        <li>Install dependencies: <code>npm install</code></li>
-        <li>Start the development server: <code>npm start</code></li>
-    </ol>
+## Features
 
-    <h2>Screenshots</h2>
-    <h3>Landing Page</h3>
-    <img src="screenshots/landing-page.png" alt="Landing Page">
+- Most popular trekking destination and exclusive deals suggestion for new users.
+- User-friendly travel planning interface to seamlessly navigate and plan their trips with ease.
+- Up-to-date information hub for tourists.
+- Relevant packages listing for tourists according to specific destinations.
+- Provide complete overall details of booked travel packages.
+- AI Chat support.
 
-    <h3>Sign Up Interface</h3>
-    <img src="screenshots/signup.png" alt="Sign Up Interface">
+## Installation
 
-    <h3>Featured Packages</h3>
-    <img src="screenshots/featured-packages.png" alt="Featured Packages">
+1. Clone the repository: `git clone https://github.com/your-username/tripvisor.git`
+2. Navigate to the project directory: `cd tripvisor`
+3. Install dependencies: `npm install`
+4. Start the development server: `npm start`
 
-    <h3>Package Details</h3>
-    <img src="screenshots/package-details.png" alt="Package Details">
+## Screenshots
 
-    <h2>Contributing</h2>
-    <p>Contributions are welcome! Please follow the guidelines in the <a href="https://github.com/your-username/tripvisor/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> file.</p>
+### Landing Page
+![Landing Page](screenshots/landing-page.png)
 
-    <h2>License</h2>
-    <p>This project is licensed under the <a href="https://github.com/your-username/tripvisor/blob/main/LICENSE">MIT License</a>.</p>
-</body>
-</html>
+### Sign Up Interface
+![Sign Up Interface](screenshots/signup.png)
+
+### Featured Packages
+![Featured Packages](screenshots/featured-packages.png)
+
+### Package Details
+![Package Details](screenshots/package-details.png)
+
+## Contributing
+
+Contributions are welcome! Please follow the guidelines in the [CONTRIBUTING.md](https://github.com/your-username/tripvisor/blob/main/CONTRIBUTING.md) file.
+
+## License
+
+This project is licensed under the [MIT License](https://github.com/your-username/tripvisor/blob/main/LICENSE).
