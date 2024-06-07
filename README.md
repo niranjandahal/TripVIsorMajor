@@ -21,19 +21,30 @@ TripVisor is a web-based application designed to simplify the exploration and bo
 ## Screenshots
 
 ### Landing Page
-![Landing Page](screenshots/landing-page.png)
-
-### Sign Up Interface
-![Sign Up Interface](screenshots/signup.png)
-
-### Featured Packages
-![Featured Packages](screenshots/featured-packages.png)
-
-### Package Details
-![Package Details](screenshots/package-details.png)
+![Landing Page](Picture8.png)
 
 ### AI ChatBot
 ![Package Details](Picture1.png)
+
+### featured packages
+![featured packages](Picture5.png)
+
+### trending packages
+![trending packages](Picture4.png)
+
+### package Overview
+![Package Overview](Picture3.png)
+
+### Package Details
+![Package Details](Picture2.png)
+
+### Login & Sign Up Interface
+![Login Interface](Picture6.png)
+
+![Sign Up Interface](Picture7.png)
+
+
+
 
 
 ## Contributing
