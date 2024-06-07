@@ -13,10 +13,10 @@ TripVisor is a web-based application designed to simplify the exploration and bo
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/tripvisor.git`
-2. Navigate to the project directory: `cd tripvisor`
-3. Install dependencies: `npm install`
-4. Start the development server: `npm start`
+1. Clone the repository: `git clone https://github.com/niranjandahal/tripvisormajor.git`
+2. Navigate to the project directory: `cd tripvisormajor`
+3. get used packages: `flutter pub get`
+4. run the application: `flutter run`
 
 ## Screenshots
 
@@ -31,6 +31,10 @@ TripVisor is a web-based application designed to simplify the exploration and bo
 
 ### Package Details
 ![Package Details](screenshots/package-details.png)
+
+### AI ChatBot
+![Package Details](Picture1.png)
+
 
 ## Contributing
 
