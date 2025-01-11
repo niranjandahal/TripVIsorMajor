@@ -51,10 +51,9 @@ class _AdminPanelState extends State<AdminPanel> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: showAgencyListView
+                      foregroundColor: Colors.white, backgroundColor: showAgencyListView
                           ? Colors.blue
-                          : Colors.grey, // Highlight when selected
-                      onPrimary: Colors.white, // Text color
+                          : Colors.grey, // Text color
                       padding:
                           EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                     ),
@@ -68,10 +67,9 @@ class _AdminPanelState extends State<AdminPanel> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: !showAgencyListView
+                      foregroundColor: Colors.white, backgroundColor: !showAgencyListView
                           ? Colors.blue
-                          : Colors.grey, // Highlight when selected
-                      onPrimary: Colors.white, // Text color
+                          : Colors.grey, // Text color
                       padding:
                           EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                     ),
@@ -135,8 +133,7 @@ class _AdminPanelState extends State<AdminPanel> {
                                 // Handle delete package button press
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.red, // Background color
-                                onPrimary: Colors.white, // Text color
+                                foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 8),
                               ),
@@ -197,8 +194,7 @@ class _AdminPanelState extends State<AdminPanel> {
                             // Handle delete package button press
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.red, // Background color
-                            onPrimary: Colors.white, // Text color
+                            foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
                             padding: EdgeInsets.symmetric(
                                 horizontal: 40, vertical: 20),
                           ),

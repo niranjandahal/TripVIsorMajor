@@ -64,36 +64,36 @@ class _BookPackagesState extends State<BookPackages> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Book Package'),
+        title: const Text('Book Package'),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Container(
                 child: Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(widget.pid),
                       Text(widget.uid),
-                      Text(
+                      const Text(
                         'Selected Package Description',
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
                       Text(
-                        'Package ID: ${widget.pid ?? ""}',
-                        style: TextStyle(fontSize: 16.0),
+                        'Package ID: ${widget.pid}',
+                        style: const TextStyle(fontSize: 16.0),
                       ),
-                      SizedBox(height: 10.0),
-                      Text(
+                      const SizedBox(height: 10.0),
+                      const Text(
                         'Package Details: Insert package details here.',
                         style: TextStyle(fontSize: 16.0),
                       ),
@@ -103,20 +103,20 @@ class _BookPackagesState extends State<BookPackages> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Form(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           await _confirmPayment();
                         }
                       },
-                      child: Text('Confirm Payment'),
+                      child: const Text('Confirm Payment'),
                     ),
                   ],
                 ),

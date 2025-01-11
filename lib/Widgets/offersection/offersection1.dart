@@ -255,7 +255,7 @@ class OfferCard extends StatelessWidget {
                 color: Colors.white,
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFFC454).withOpacity(0.8),
+                backgroundColor: Color(0xFFFFC454).withOpacity(0.8),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),

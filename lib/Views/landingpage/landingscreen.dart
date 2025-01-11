@@ -148,7 +148,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                     width: 125,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          primary: Color(0xFFFFC454),
+                                          backgroundColor: Color(0xFFFFC454),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(8),

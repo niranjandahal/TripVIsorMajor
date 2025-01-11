@@ -44,7 +44,7 @@ class CustomFooter extends StatelessWidget {
                         // Handle subscription logic
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blue[700],
+                        backgroundColor: Colors.blue[700],
                         padding: EdgeInsets.symmetric(
                           horizontal: 20,
                           vertical: 15,

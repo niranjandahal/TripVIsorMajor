@@ -86,12 +86,10 @@ class _AgencySignInState extends State<AgencySignIn> {
           ),
 
           actionButtonStyle: ElevatedButton.styleFrom(
-            textStyle: TextStyle(
+            foregroundColor: Colors.white, backgroundColor: Colors.blue, textStyle: TextStyle(
               color: Colors.white,
               fontSize: 20,
             ),
-            primary: Colors.blue,
-            onPrimary: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),
             ),

@@ -34,7 +34,7 @@ dependencies:
 
 dev_dependencies:
   animated_login: ^1.7.2
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.0.0
   flutter_gemini: ^2.0.3
   flutter_lints: ^2.0.0
   flutter_stripe: ^10.1.0

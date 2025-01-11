@@ -355,8 +355,7 @@ class _PackageDetailsState extends State<PackageDetails> {
                                   fontWeight: FontWeight.bold,
                                 )),
                             style: ElevatedButton.styleFrom(
-                              fixedSize: Size(500, 40),
-                              primary: Colors.blue,
+                              fixedSize: Size(500, 40), backgroundColor: Colors.blue,
                               padding: EdgeInsets.symmetric(
                                 horizontal: 80,
                                 vertical: 10,
